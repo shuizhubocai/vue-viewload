@@ -1,0 +1,30 @@
+{
+  "name": "view",
+  "version": "1.0.0",
+  "description": "Vue module, lazyload images,viewload images",
+  "main": "vue-viewload.js",
+  "scripts": {
+    "watch": "webpack --colors --watch",
+    "build": "webpack --colors",
+    "demo": "webpack --watch --colors --config ./demo/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "shuizhubocai <949395345@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shuizhubocai"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "file-loader": "^0.11.1",
+    "style-loader": "^0.16.1",
+    "vue": "^2.2.6",
+    "vue-loader": "^11.3.4",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.4.1"
+  }
+}
