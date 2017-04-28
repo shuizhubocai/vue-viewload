@@ -1,5 +1,5 @@
 {
-  "name": "view",
+  "name": "vue-viewload",
   "version": "1.0.0",
   "description": "Vue module, lazyload images,viewload images",
   "main": "dist/vue-viewload.min.js",
