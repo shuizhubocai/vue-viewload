@@ -3,10 +3,10 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        demo: path.join(__dirname, './demo.src.js')
+        demo: path.join(__dirname, './src/demo.src.js')
     },
     output: {
-        path: path.join(__dirname, './'),
+        path: path.join(__dirname, './dist'),
         filename: "[name].bundle.js"
     },
     module: {

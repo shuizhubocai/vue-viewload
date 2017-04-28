@@ -1,6 +1,13 @@
+/**
+ * vue-viewload 资源懒加载vue2.0版，图片懒加载，可视区域加载，依赖vue.js。使用最新的API，建议在移动端使用
+ * Author : 水煮菠菜 949395345@qq.com
+ * Url : https://github.com/shuizhubocai
+ * Date : 2017-4-27
+ */
+
 let _util = {
     /**
-     * debounce 函数去抖动
+     * debounce 函数去抖
      * @param fn
      * @param delay
      * @returns {function()}
@@ -8,95 +15,206 @@ let _util = {
     debounce(fn, delay) {
         let timer
         return () => {
-            let _this = this
-            let _arg = arguments
             clearTimeout(timer)
             timer = setTimeout(() => {
-                fn.apply(_this, _arg)
+                fn.apply(this, arguments)
             }, delay)
+        }
+    },
+    /**
+     * getPicInfo 快速获取图片宽高，图片加载完回调
+     * @param options 对象类型，包含{src:string, fastCallback:fn, loadedCallback:fn, errorCallback:fn}
+     * @options  src是图片地址，fastCallback是快速获取到图片宽高后的回调函数，loadedCallback是图片加载完的回调函数，errorCallback是图片加载失败的回调函数
+     * @params {isError: boolean, width:number: height:number}，回调函数参数
+     */
+    getPicInfo: function (options) {
+        let src = options.src || '',
+            fastCallback = options.fastCallback,
+            loadedCallback = options.loadedCallback,
+            errorCallback = options.errorCallback,
+            pic = new Image(),
+            params = {
+                isError: false,
+                width: 0,
+                height: 0
+            },
+            rollpolling = function () {
+                if (params.isError || pic.width > 0 || pic.height > 0) {
+                    clearInterval(timer)
+                    params.width = pic.width
+                    params.height = pic.height
+                    fastCallback && fastCallback(params)
+                }
+            },
+            timer
+        pic.src = src
+        pic.addEventListener('error', function (e) {
+            params.isError = true
+            errorCallback && errorCallback(params)
+        }, false)
+        if (pic.complete) {
+            params.width = pic.width
+            params.height = pic.height
+            fastCallback && fastCallback(params)
+            loadedCallback && loadedCallback(params)
+        } else {
+            pic.addEventListener('load', function () {
+                params.width = pic.width
+                params.height = pic.height
+                loadedCallback && loadedCallback(params)
+            }, false)
+            timer = setInterval(rollpolling, 50)
         }
     }
 }
 
 class VueViewload {
     /**
-     * @param picPlaceholder   默认图片
-     * @param threshold        距离可视范围偏移值，负值表示提前进入，正值表示延迟进入
-     * @param effectFadeIn     是否渐入显示，默认是false
-     * @param callback         进入可视区域后的回调函数，接收两个个参数，ele元素，loadAttr加载资源
-     * selector 遍历的元素，每一项是一个对象，包含元素ele，加载资源src，资源加载状态status，status有未加载loading，已加载loaded，加载失败error
+     * @attr  emptyPic              base64空白图片
+     * @param defaultPic            默认加载中图片
+     * @param errorPic              加载失败图片
+     * @param threshold             距离可视范围偏移值，负值表示提前进入，正值表示延迟进入
+     * @param container             容器，必须是id名称，默认为window
+     * @param effectFadeIn          是否渐入显示，默认是false
+     * @param callback(ele, src)    进入可视区域后的回调函数，接收两个参数：ele表示元素，src表示加载的资源
+     * @attr  selector              集合数组[{ele:'', src:''}]，每一项是一个对象，ele表示元素，src表示加载的资源
+     * @attr  event                 支持的事件
      */
     constructor (options) {
-        this.picPlaceHolder = options && options.picPlaceHolder || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+        this.emptyPic = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+        this.defaultPic = options && options.defaultPic || this.emptyPic
+        this.errorPic = options && options.errorPic || this.emptyPic
+        this.container = options && options.container || window
         this.threshold = options && options.threshold || 0
         this.effectFadeIn = options && options.effectFadeIn || false
         this.callback = options && options.callback || new Function
-        this.selector = []
+        this.selector = options && options.selector || []
         this.event = ['scroll', 'resize']
         this.delayRender = _util.debounce(this.render.bind(this), 200)
     }
 
+    /**
+     * inView 是否进入可视区域
+     * @param ele
+     * @returns {boolean}
+     */
     inView (ele) {
-        let isInView = false
-        let rect = ele.getBoundingClientRect()
-        if (rect.bottom > this.threshold && rect.top + this.threshold < window.innerHeight && rect.right > this.threshold && rect.left + this.threshold < window.innerWidth) {
+        let isInView = false,
+            rect = ele.getBoundingClientRect(),
+            viewWidth = this.container == window ? window.innerWidth : this.container.clientWidth,
+            viewHeight = this.container == window ? window.innerHeight : this.container.clientHeight
+        if (rect.bottom > this.threshold && rect.top + this.threshold < viewHeight && rect.right > this.threshold && rect.left + this.threshold < viewWidth) {
             isInView = true
         }
         return isInView
     }
 
-    render () {
-        let _this = this
-        this.selector.forEach(function (item, index, arr) {
-            if (item.display !== 'none' && item.status == 'loading') {
-                if (_this.inView(item.ele)) {
-                    if (item.ele.nodeName.toLowerCase() == 'img') {
-                        item.ele.src = item.src
-                        item.ele.addEventListener('error', function () {
-                            item.ele.isError = true
-                            item.status = 'error'
-                        }, false)
-                        if (_this.effectFadeIn) {
-                            item.status = 'loaded'
-                            item.ele.style.opacity = 0
-                            item.ele.addEventListener('load', function () {
-                                if (this.isError) {
-                                    this.src = _this.picPlaceHolder
-                                }
-                                this.style.opacity = 1
-                                this.style.transition = 'opacity 1s'
-                            })
-                        }
-
-                    }
-                    _this.callback(item.ele, item.src)
-                }
-            }
+    /**
+     * bindUI 绑定UI事件
+     * @param fn
+     */
+    bindUI (fn) {
+        this.event.forEach((item, index) => {
+            this.container.addEventListener(item, fn, false)
         })
+    }
+
+    /**
+     * unbindUI 删除UI事件
+     * @param fn
+     */
+    unbindUI (fn) {
+        this.event.forEach((item, index) => {
+            this.container.removeEventListener(item, fn, false)
+        })
+    }
+
+    /**
+     * render 渲染资源
+     * status属性 值包含：error加载失败，loading加载中，loaded加载完成
+     */
+    render () {
+        if (!this.isLoadEvent) {
+            this.isLoadEvent = true
+            this.bindUI(this.delayRender)
+        }
+        if (!this.selector.length) {
+            this.unbindUI(this.delayRender)
+        }
+        for (let i = 0; i < this.selector.length; i++) {
+            let item = this.selector[i]
+            if (!item.ele.getAttribute('data-src')) {
+                item.ele.setAttribute('data-src', item.src)
+                item.ele.setAttribute('status', 'loading')
+            }
+            if (!item.ele.getAttribute('src')) {
+                item.ele.setAttribute('src', this.defaultPic)
+            }
+            if (getComputedStyle(item.ele, null).display == 'none') {
+                this.selector.splice(i--, 1)
+                continue
+            }
+            if (this.inView(item.ele)) {
+                if (item.ele.nodeName.toLowerCase() == 'img') {
+                    _util.getPicInfo({
+                        src: item.src,
+                        errorCallback: (options) => {
+                            item.ele.src = this.errorPic
+                            item.ele.setAttribute('status', 'error')
+                        },
+                        loadedCallback: (options) => {
+                            if (this.effectFadeIn) {
+                                item.ele.style.opacity = 0
+                            }
+                            item.ele.src = options.isError ? this.errorPic : item.src
+                            item.ele.removeAttribute('data-src')
+                            item.ele.setAttribute('status', 'loaded')
+                            setTimeout(() => {
+                                item.ele.style.opacity = 1
+                                item.ele.style.transition = 'all 1s'
+                            }, 50)
+
+                        }
+                    })
+                }
+                this.callback(item.ele, item.src)
+                this.selector.splice(i--, 1)
+            }
+        }
     }
 }
 
 export default {
     /**
-     * Vue插件
+     * Vue插件 install方法
      * @param Vue
-     * @param options
+     * @param options options选项值和VueViewload类选项是一致的
      */
     install(Vue, options = {}) {
-        let vueviewload = new VueViewload(options)
-        Vue.prototype.$vueviewload = vueviewload
+        let reg = new RegExp('((\\..{1,4})|(\/))$'),
+            resourceEles = {},
+            initRender
         Vue.directive('view', {
             bind(el, binding) {
-                if (vueviewload.selector.indexOf(el) == -1) {
-                    vueviewload.selector.push({
-                        ele: el,
-                        src: binding.value,
-                        status: 'loading',
-                        display: getComputedStyle(el, null).display
-                    })
+                let containerName = binding.arg == undefined ? 'window' : binding.arg
+                if (resourceEles[containerName] == undefined) {
+                    resourceEles[containerName] = []
                 }
+                resourceEles[containerName].push({
+                    ele: el,
+                    src: reg.test(binding.value) ? binding.value : reg.test(binding.expression) ? binding.expression : ''
+                })
                 Vue.nextTick(() => {
-                    vueviewload.delayRender()
+                    if (typeof initRender == 'undefined') {
+                        initRender = _util.debounce(function () {
+                            for (let key in resourceEles) {
+                                options.container = key == 'window' ? window : document.getElementById(key)
+                                options.selector = resourceEles[key]
+                                new VueViewload(options).delayRender()
+                            }
+                        }, 200)
+                    }
+                    initRender()
                 })
             }
         })

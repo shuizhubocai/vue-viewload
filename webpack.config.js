@@ -7,7 +7,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, './dist'),
-        filename: "[name].bundle.js"
+        filename: "[name].min.js"
     },
     module: {
         rules: [
@@ -32,9 +32,9 @@ module.exports = {
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false,
+                warnings: false/*,
                 drop_console: true,
-                drop_debugger: true
+                drop_debugger: true*/
             }
         })
     ],
