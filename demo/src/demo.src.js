@@ -35,11 +35,7 @@ new Vue({
             'http://pics.sc.chinaz.com/files/pic/pic9/201604/apic20040.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201604/fpic914.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201604/fpic873.jpg',
-            'http://pics.sc.chinaz.com/files/pic/pic9/201605/fpic120823.jpg'
+            'http://pics.sc.chinaz.com/files/pic/pic9/201605/fpic1208.jpg'
         ]
-    },
-    mounted () {
-        // console.log(this.$vueviewload);
     }
-
 })

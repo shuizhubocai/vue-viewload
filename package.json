@@ -1,8 +1,8 @@
 {
   "name": "vue-viewload",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue module, lazyload images,viewload images",
-  "main": "src/vue-viewload.js",
+  "main": "dist/vue-viewload.min.js",
   "scripts": {
     "watch": "webpack --colors --watch",
     "build": "webpack --colors",

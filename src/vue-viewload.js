@@ -78,6 +78,7 @@ class VueViewload {
      * @param effectFadeIn          是否渐入显示，默认是false
      * @param callback(ele, src)    进入可视区域后的回调函数，接收两个参数：ele表示元素，src表示加载的资源
      * @attr  selector              集合数组[{ele:'', src:''}]，每一项是一个对象，ele表示元素，src表示加载的资源
+     * @attr  status                资源加载状态属性值，loading表示还没加载，loaded表示加载完，error表示加载失败
      * @attr  event                 支持的事件
      */
     constructor (options) {
@@ -90,6 +91,7 @@ class VueViewload {
         this.callback = options && options.callback || new Function
         this.selector = options && options.selector || []
         this.event = ['scroll', 'resize']
+        this.status = ['loading', 'loaded', 'error']
         this.delayRender = _util.debounce(this.render.bind(this), 200)
     }
 
@@ -131,7 +133,7 @@ class VueViewload {
 
     /**
      * render 渲染资源
-     * status属性 值包含：error加载失败，loading加载中，loaded加载完成
+     * data-status属性 值包含：error加载失败，loading加载中，loaded加载完成
      */
     render () {
         if (!this.isLoadEvent) {
@@ -143,9 +145,9 @@ class VueViewload {
         }
         for (let i = 0; i < this.selector.length; i++) {
             let item = this.selector[i]
-            if (!item.ele.getAttribute('data-src')) {
-                item.ele.setAttribute('data-src', item.src)
-                item.ele.setAttribute('status', 'loading')
+            if (!item.ele.dataset.src) {
+                item.ele.dataset.src = item.src
+                item.ele.dataset.status = this.status[0]
             }
             if (!item.ele.getAttribute('src')) {
                 item.ele.setAttribute('src', this.defaultPic)
@@ -160,7 +162,7 @@ class VueViewload {
                         src: item.src,
                         errorCallback: (options) => {
                             item.ele.src = this.errorPic
-                            item.ele.setAttribute('status', 'error')
+                            item.ele.dataset.status = this.status[2]
                         },
                         loadedCallback: (options) => {
                             if (this.effectFadeIn) {
@@ -168,7 +170,7 @@ class VueViewload {
                             }
                             item.ele.src = options.isError ? this.errorPic : item.src
                             item.ele.removeAttribute('data-src')
-                            item.ele.setAttribute('status', 'loaded')
+                            item.ele.dataset.status = this.status[1]
                             setTimeout(() => {
                                 item.ele.style.opacity = 1
                                 item.ele.style.transition = 'all 1s'
