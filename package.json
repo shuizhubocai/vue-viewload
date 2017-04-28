@@ -12,7 +12,7 @@
   "author": "shuizhubocai <949395345@qq.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shuizhubocai"
+    "url": "https://github.com/shuizhubocai/vue-viewload.git"
   },
   "license": "MIT",
   "devDependencies": {
