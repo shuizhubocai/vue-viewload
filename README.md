@@ -31,7 +31,7 @@ npm install
 npm run demo
 ```
 
-打开/demo/index.html查看示例
+上面步骤完成后，可以在浏览器中打开/demo/index.html查看示例
 
 # 使用vue-viewload
 js文件中
