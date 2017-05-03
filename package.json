@@ -2,11 +2,11 @@
   "name": "vue-viewload",
   "version": "1.0.2",
   "description": "Vue module, lazyload images,viewload images",
-  "main": "dist/vue-viewload.min.js",
+  "main": "src/vue-viewload.js",
   "scripts": {
     "watch": "webpack --colors --watch",
     "build": "webpack --colors",
-    "demo": "webpack --colors --watch  --config ./demo/webpack.config.js"
+    "demo": "webpack --colors --watch --config ./demo/webpack.config.js"
   },
   "keywords": [],
   "author": "shuizhubocai <949395345@qq.com>",

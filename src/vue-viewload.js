@@ -5,7 +5,7 @@
  * Date : 2017-4-27
  */
 
-let _util = {
+const _util = {
     /**
      * debounce 函数去抖
      * @param fn
@@ -186,39 +186,50 @@ class VueViewload {
     }
 }
 
-export default {
-    /**
-     * Vue插件 install方法
-     * @param Vue
-     * @param options options选项值和VueViewload类选项是一致的
-     */
-    install(Vue, options = {}) {
-        let reg = new RegExp('((\\..{1,4})|(\/))$'),
-            resourceEles = {},
-            initRender
-        Vue.directive('view', {
-            bind(el, binding) {
-                let containerName = binding.arg == undefined ? 'window' : binding.arg
-                if (resourceEles[containerName] == undefined) {
-                    resourceEles[containerName] = []
-                }
-                resourceEles[containerName].push({
-                    ele: el,
-                    src: reg.test(binding.value) ? binding.value : reg.test(binding.expression) ? binding.expression : ''
-                })
-                Vue.nextTick(() => {
-                    if (typeof initRender == 'undefined') {
-                        initRender = _util.debounce(function () {
-                            for (let key in resourceEles) {
-                                options.container = key == 'window' ? window : document.getElementById(key)
-                                options.selector = resourceEles[key]
-                                new VueViewload(options).delayRender()
-                            }
-                        }, 200)
-                    }
-                    initRender()
-                })
+const VueViewload = {}
+
+/**
+ * Vue插件 install方法
+ * @param Vue
+ * @param options options选项值和VueViewload类选项是一致的
+ */
+VueViewload.install = (Vue, options = {}) => {
+    let reg = new RegExp('((\\..{1,4})|(\/))$'),
+        resourceEles = {},
+        initRender
+    Vue.directive('view', {
+        bind(el, binding) {
+            let containerName = binding.arg == undefined ? 'window' : binding.arg
+            if (resourceEles[containerName] == undefined) {
+                resourceEles[containerName] = []
             }
-        })
-    }
+            resourceEles[containerName].push({
+                ele: el,
+                src: reg.test(binding.value) ? binding.value : reg.test(binding.expression) ? binding.expression : ''
+            })
+            Vue.nextTick(() => {
+                if (typeof initRender == 'undefined') {
+                    initRender = _util.debounce(function () {
+                        for (let key in resourceEles) {
+                            options.container = key == 'window' ? window : document.getElementById(key)
+                            options.selector = resourceEles[key]
+                            new VueViewload(options).delayRender()
+                        }
+                    }, 200)
+                }
+                initRender()
+            })
+        }
+    })
+}
+
+if (typeof define == 'function' && define.amd) {
+    define(function () {
+        return VueViewload
+    })
+} else if (typeof exports == 'object') {
+    module.exports = VueViewload
+} else if (window.Vue) {
+    window.VueViewload = VueViewload
+    Vue.use(VueViewload)
 }
