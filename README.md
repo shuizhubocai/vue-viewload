@@ -27,7 +27,7 @@ Vue.use(VueViewload)
 new Vue({
     el: '#app',
     data: {
-        img: 'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg',
+        pic: 'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg',
         list: [
             'http://pics.sc.chinaz.com/files/pic/pic9/201702/zzpic1399.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201612/fpic9875.jpg',
@@ -60,7 +60,7 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 <img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;">
 
 #资源URL是变量的，img变量为字符串，容器为window
-<img v-view="img" style="height:200px;">
+<img v-view="pic" style="height:200px;">
 
 #资源URL是变量的，list变量为数组，容器为window
 <img v-view="item" v-for="item in list" style="height:200px;">
