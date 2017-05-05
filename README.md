@@ -56,14 +56,14 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 ```html
 <div id="app">
 
-#资源URL不是变量的，需用单引号引起来，容器为window
-<img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;">
+    #资源URL不是变量的，需用单引号引起来，容器为window
+    <img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;">
 
-#资源URL是变量的，img变量为字符串，容器为window
-<img v-view="pic" style="height:200px;">
+    #资源URL是变量的，img变量为字符串，容器为window
+    <img v-view="pic" style="height:200px;">
 
-#资源URL是变量的，list变量为数组，容器为window
-<img v-view="item" v-for="item in list" style="height:200px;">
+    #资源URL是变量的，list变量为数组，容器为window
+    <img v-view="item" v-for="item in list" style="height:200px;">
 
 </div>
 ```
@@ -72,8 +72,8 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 ```html
 <div id="app">
 
-#设img的src值为loading.gif的url
-<img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic">
+    #设img的src值为loading.gif的url
+    <img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic">
 
 </div>
 ```
