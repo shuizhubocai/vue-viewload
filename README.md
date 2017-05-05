@@ -92,7 +92,7 @@ options对象
 ---|---|---|---
 defaultPic|图片未加载完显示的图片|base64的空白图片|String
 errorPic|元素为img类型时，图片加载失败显示的图片|base64的空白图片|String
-threshold|阀值，负值表示提前进入，正值表示延迟进入，设置提前多少像素进入可视区域|0|Number
+threshold|阀值，用来设置提前多少像素进入可视区域。负值表示提前进入，正值表示延迟进入，|0|Number
 effectFadeIn|图片加载完是否淡入显示|false|Boolean
-callback|资源进入可视区域后执行的回调函数，接收两个参数callback(ele, src)，ele是进入可视区域的元素，src是要加载的资源URL|new Function|Function
+callback|资源进入可视区域后执行的回调函数。接收两个参数callback(ele, src)，ele是进入可视区域的元素，src是要加载的资源URL。可以用在非img元素进入可视区域加载|new Function|Function
 
