@@ -68,7 +68,7 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 </div>
 ```
 
-设置img元素未加载时显示的loadinig.gif图片
+给img元素的src赋值，设置图片未加载时显示的图片，可以图片设置为一个loading.gif动态加载图
 ```html
 <div id="app">
 
