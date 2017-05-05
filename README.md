@@ -9,29 +9,10 @@ vue图片懒加载，依赖vue2.0以上版本。图片或者其他资源进入�
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 
 # 安装vue-viewload
-使用npm安装在本地：
+使用npm在本地安装：
 ```bash
 npm install vue-viewload --save-dev
 ```
-
-使用CDN：
-```javascript
-<script src="https://unpkg.com/vue-viewload/src/vue-viewload.js"></script>
-<script>
-Vue.use(VueViewload)
-</script>
-```
-
-# 本地运行示例
-```bash
-#安装完vue-viewload后，在当前目录用npm安装项目依赖包
-npm install
-
-#打包demo代码
-npm run demo
-```
-
-上面步骤完成后，可以在浏览器中打开/demo/index.html查看示例
 
 # 使用vue-viewload
 js文件中
@@ -71,12 +52,12 @@ new Vue({
 })
 ```
 
-html文件中，在要进行懒加载的元素上添加vue指令v-view，值为加载的资源URL。需要懒加载的元素请设置宽高样式
+html文件中，在要进行懒加载的元素上添加vue指令v-view，值为加载资源的URL。需要懒加载的元素请尽量设置宽高样式
 ```html
 <div id="app">
 
 #资源URL不是变量的，需用单引号引起来，容器为window
-<img v-view="'https://www.baidu.com/img/bd_logo.png'" style="height:200px;">
+<img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;">
 
 #资源URL是变量的，img变量为字符串，容器为window
 <img v-view="img" style="height:200px;">
@@ -84,13 +65,19 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 #资源URL是变量的，list变量为数组，容器为window
 <img v-view="item" v-for="item in list" style="height:200px;">
 
-#资源URL是变量的，list变量为数组，容器id为horizontal
-<div id="horizontal">
-    <img v-view:horizontal="item" v-for="item in list" style="width:200px;">
 </div>
+```
+
+设置img元素未加载时显示的loadinig.gif图片
+```html
+<div id="app">
+
+#设img的src值为loading.gif的url
+<img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'">
 
 </div>
 ```
+
 
 
 # 设置懒加载选项

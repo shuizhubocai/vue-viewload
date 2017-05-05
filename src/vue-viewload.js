@@ -5,7 +5,7 @@
  * Date : 2017-4-27
  */
 
-const _util = {
+let _util = {
     /**
      * debounce 函数去抖
      * @param fn
@@ -103,9 +103,10 @@ class VueViewload {
     inView (ele) {
         let isInView = false,
             rect = ele.getBoundingClientRect(),
+            parentRect = this.container == window ? {left:0, top: 0} : this.container.getBoundingClientRect(),
             viewWidth = this.container == window ? window.innerWidth : this.container.clientWidth,
             viewHeight = this.container == window ? window.innerHeight : this.container.clientHeight
-        if (rect.bottom > this.threshold && rect.top + this.threshold < viewHeight && rect.right > this.threshold && rect.left + this.threshold < viewWidth) {
+        if (rect.bottom > this.threshold + parentRect.top && rect.top + this.threshold < viewHeight + parentRect.top && rect.right > this.threshold + parentRect.left && rect.left + this.threshold < viewWidth + parentRect.left) {
             isInView = true
         }
         return isInView
@@ -113,21 +114,19 @@ class VueViewload {
 
     /**
      * bindUI 绑定UI事件
-     * @param fn
      */
-    bindUI (fn) {
+    bindUI () {
         this.event.forEach((item, index) => {
-            this.container.addEventListener(item, fn, false)
+            this.container.addEventListener(item, this.delayRender, false)
         })
     }
 
     /**
      * unbindUI 删除UI事件
-     * @param fn
      */
-    unbindUI (fn) {
+    unbindUI () {
         this.event.forEach((item, index) => {
-            this.container.removeEventListener(item, fn, false)
+            this.container.removeEventListener(item, this.delayRender, false)
         })
     }
 
@@ -138,10 +137,10 @@ class VueViewload {
     render () {
         if (!this.isLoadEvent) {
             this.isLoadEvent = true
-            this.bindUI(this.delayRender)
+            this.bindUI()
         }
         if (!this.selector.length) {
-            this.unbindUI(this.delayRender)
+            this.unbindUI()
         }
         for (let i = 0; i < this.selector.length; i++) {
             let item = this.selector[i]
@@ -156,6 +155,9 @@ class VueViewload {
                 this.selector.splice(i--, 1)
                 continue
             }
+            // if (this.container.id == 'container1') break
+            // if (i !== 0) continue
+            // console.log(i);
             if (this.inView(item.ele)) {
                 if (item.ele.nodeName.toLowerCase() == 'img') {
                     _util.getPicInfo({
@@ -186,50 +188,40 @@ class VueViewload {
     }
 }
 
-const VueViewload = {}
-
-/**
- * Vue插件 install方法
- * @param Vue
- * @param options options选项值和VueViewload类选项是一致的
- */
-VueViewload.install = (Vue, options = {}) => {
-    let reg = new RegExp('((\\..{1,4})|(\/))$'),
-        resourceEles = {},
-        initRender
-    Vue.directive('view', {
-        bind(el, binding) {
-            let containerName = binding.arg == undefined ? 'window' : binding.arg
-            if (resourceEles[containerName] == undefined) {
-                resourceEles[containerName] = []
-            }
-            resourceEles[containerName].push({
-                ele: el,
-                src: reg.test(binding.value) ? binding.value : reg.test(binding.expression) ? binding.expression : ''
-            })
-            Vue.nextTick(() => {
-                if (typeof initRender == 'undefined') {
-                    initRender = _util.debounce(function () {
-                        for (let key in resourceEles) {
-                            options.container = key == 'window' ? window : document.getElementById(key)
-                            options.selector = resourceEles[key]
-                            new VueViewload(options).delayRender()
-                        }
-                    }, 200)
+export default {
+    /**
+     * Vue插件 install方法
+     * @param Vue
+     * @param options options选项值和VueViewload类选项是一致的
+     */
+    install(Vue, options = {}) {
+        let reg = new RegExp('((\\..{1,4})|(\/))$'),
+            resourceEles = {},
+            initRender
+        Vue.directive('view', {
+            bind(el, binding) {
+                let containerName = binding.arg == undefined ? 'window' : binding.arg
+                if (resourceEles[containerName] == undefined) {
+                    resourceEles[containerName] = []
                 }
-                initRender()
-            })
-        }
-    })
-}
-
-if (typeof define == 'function' && define.amd) {
-    define(function () {
-        return VueViewload
-    })
-} else if (typeof exports == 'object') {
-    module.exports = VueViewload
-} else if (window.Vue) {
-    window.VueViewload = VueViewload
-    Vue.use(VueViewload)
+                resourceEles[containerName].push({
+                    ele: el,
+                    src: reg.test(binding.value) ? binding.value : reg.test(binding.expression) ? binding.expression : ''
+                })
+                Vue.nextTick(() => {
+                    if (typeof initRender == 'undefined') {
+                        initRender = _util.debounce(function () {
+                            for (let key in resourceEles) {
+                                options.container = key == 'window' ? window : document
+                                    .getElementById(key)
+                                options.selector = resourceEles[key]
+                                new VueViewload(options).render()
+                            }
+                        }, 200)
+                    }
+                    initRender()
+                })
+            }
+        })
+    }
 }
