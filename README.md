@@ -73,7 +73,7 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 <div id="app">
 
 #设img的src值为loading.gif的url
-<img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'">
+<img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic">
 
 </div>
 ```
