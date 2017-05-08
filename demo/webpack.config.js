@@ -32,15 +32,15 @@ module.exports = {
             }
         ]
     },
-    /*plugins: [
+    plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false,
+                warnings: false/*,
                  drop_console: true,
-                 drop_debugger: true
+                 drop_debugger: true*/
             }
         })
-    ],*/
+    ],
     resolve: {
         alias: {
             "vue$": "vue/dist/vue.js"
