@@ -141,7 +141,6 @@ class VueViewload {
      * data-status属性 值包含：error加载失败，loading加载中，loaded加载完成
      */
     render () {
-        console.log(4);
         if (!this.isLoadEvent) {
             this.isLoadEvent = true
             this.bindUI()
