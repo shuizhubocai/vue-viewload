@@ -119,3 +119,6 @@ Vue.use(VueViewload, {
     }
 })
 ```
+
+# 我的无依赖javascript图片懒加载可以查看以下github仓库
+[https://github.com/shuizhubocai/viewload](https://github.com/shuizhubocai/viewload)
