@@ -1,23 +1,12 @@
-import Vue from 'vue';
-import VueViewload from '../../src/vue-viewload';
-import util from '../../../util/util';
+import Vue from 'vue'
+import VueViewload from '../../vue-viewload'
 
-Vue.use(VueViewload, {
-    defaultPic: 'http://img.zcool.cn/community/013cb15648986a32f87512f6d87dc8.gif',
-    errorPic: 'http://a0.att.hudong.com/77/31/20300542906611142174319458811.jpg',
-    threshold: -100,
-    effectFadeIn: true,
-    callback: function(ele, src) {
-        // console.log(src);
-    }
-});
-
+Vue.use(VueViewload)
 
 new Vue({
-    el: '#app',
+    el: '#app3',
     data: {
         list: [
-            'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201702/zzpic1399.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201612/fpic9875.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201610/fpic8220.jpg',

@@ -3,7 +3,10 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        demo: path.join(__dirname, './src/demo.src.js')
+        "app1": path.join(__dirname, './src/app1.js'),
+        "app2": path.join(__dirname, './src/app2.js'),
+        "app3": path.join(__dirname, './src/app3.js'),
+        "app4": path.join(__dirname, './src/app4.js')
     },
     output: {
         path: path.join(__dirname, './dist'),
@@ -29,15 +32,15 @@ module.exports = {
             }
         ]
     },
-    plugins: [
+    /*plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false/*,
-                drop_console: true,
-                drop_debugger: true*/
+                warnings: false,
+                 drop_console: true,
+                 drop_debugger: true
             }
         })
-    ],
+    ],*/
     resolve: {
         alias: {
             "vue$": "vue/dist/vue.js"

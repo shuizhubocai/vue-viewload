@@ -3,11 +3,14 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        "vue-viewload": path.join(__dirname, './src/vue-viewload.js')
+        "app1": path.join(__dirname, './demo/src/app1.js'),
+        "app2": path.join(__dirname, './demo/src/app2.js'),
+        "app3": path.join(__dirname, './demo/src/app3.js'),
+        "app4": path.join(__dirname, './demo/src/app4.js')
     },
     output: {
-        path: path.join(__dirname, './dist'),
-        filename: "[name].min.js"
+        path: path.join(__dirname, './demo/dist'),
+        filename: "[name].bundle.js"
     },
     module: {
         rules: [

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>vue</title>
+    <style>
+        #app3 {
+            padding: 20px;
+        }
+        .box {
+            overflow: scroll
+        }
+        .box1 {
+            white-space: nowrap;
+        }
+        .box1 p {
+            display: inline-block;
+            width: 300px;
+        }
+        .box2 {
+            height: 400px;
+            min-width: 250px;
+            max-width: 100%;
+        }
+        .box2 p {
+            min-height: 100px;
+        }
+        img {
+            vertical-align: top;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="app3">
+    <h1>容器内横向滚动</h1>
+    <div id="container1" class="box box1">
+        <p v-for="item in list"><img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view:container1="item"></p>
+    </div>
+    <h1>容器内纵向滚动</h1>
+    <div id="container2" class="box box2">
+        <p v-for="item in list"><img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view:container2="item"></p>
+    </div>
+</div>
+<script src="../dist/app3.bundle.js"></script>
+</body>
+</html>
