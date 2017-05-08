@@ -95,3 +95,17 @@ errorPic|元素为img类型时，图片加载失败显示的图片|base64的空�
 threshold|阀值，用来设置提前多少像素进入可视区域。负值表示提前进入，正值表示延迟进入，|0|Number
 effectFadeIn|图片加载完是否淡入显示|false|Boolean
 callback|资源进入可视区域后执行的回调函数。接收两个参数callback(ele, src)，ele是进入可视区域的元素，src是要加载的资源URL。可以用在非img元素进入可视区域加载|new Function|Function
+
+比如，设置默认loading.gif图，加载失败图，提前200px加载图片，图片淡入显示，图片进入可视区域执行回调函数:
+```javascript
+Vue.use(VueViewload, {
+    defaultPic: 'http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif',
+    errorPic: 'http://a0.att.hudong.com/77/31/20300542906611142174319458811.jpg',
+    threshold: -200,
+    effectFadeIn: true,
+    callback: function(ele, src) {
+        ele.style.border = '1px solid red';
+        console.log(ele.nodeName + '...' + src);
+    }
+})
+```
