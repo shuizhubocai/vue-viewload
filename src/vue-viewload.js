@@ -118,6 +118,9 @@ class VueViewload {
     bindUI () {
         this.event.forEach((item, index) => {
             this.container.addEventListener(item, this.delayRender, false)
+            if (this.container !== window && item == 'resize') {
+                window.addEventListener(item, this.delayRender, false)
+            }
         })
     }
 
@@ -127,6 +130,9 @@ class VueViewload {
     unbindUI () {
         this.event.forEach((item, index) => {
             this.container.removeEventListener(item, this.delayRender, false)
+            if (this.container !== window && item == 'resize') {
+                window.removeEventListener(item, this.delayRender, false)
+            }
         })
     }
 
@@ -135,6 +141,7 @@ class VueViewload {
      * data-status属性 值包含：error加载失败，loading加载中，loaded加载完成
      */
     render () {
+        console.log(4);
         if (!this.isLoadEvent) {
             this.isLoadEvent = true
             this.bindUI()
@@ -155,9 +162,6 @@ class VueViewload {
                 this.selector.splice(i--, 1)
                 continue
             }
-            // if (this.container.id == 'container1') break
-            // if (i !== 0) continue
-            // console.log(i);
             if (this.inView(item.ele)) {
                 if (item.ele.nodeName.toLowerCase() == 'img') {
                     _util.getPicInfo({
