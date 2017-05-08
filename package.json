@@ -1,6 +1,6 @@
 {
   "name": "vue-viewload",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Vue module, lazyload images,viewload images",
   "main": "src/vue-viewload.js",
   "scripts": {

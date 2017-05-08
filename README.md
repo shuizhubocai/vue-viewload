@@ -16,7 +16,7 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 - [懒加载选项设置](https://shuizhubocai.github.io/vue-viewload/demo/html/app4.html)
 
 # 扫码查看例子入口
-- [![demo](https://shuizhubocai.github.io/vue-viewload/demo/img/qrcode.png)](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
+[![demo](https://shuizhubocai.github.io/vue-viewload/demo/img/qrcode.png)](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
 
 # 安装vue-viewload
 使用npm在本地安装：
