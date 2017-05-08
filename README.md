@@ -8,6 +8,16 @@ vue图片懒加载，依赖vue2.0以上版本。图片或者其他资源进入�
 --- | --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 
+# 例子预览(例子就是/demo目录下的文件)
+- [例子列表](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
+- [纵向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app1.html)
+- [横向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app2.html)
+- [在容器内滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app3.html)
+- [懒加载选项设置](https://shuizhubocai.github.io/vue-viewload/demo/html/app4.html)
+
+# 扫码查看例子入口
+- [![demo](https://shuizhubocai.github.io/vue-viewload/demo/img/qrcode.png)](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
+
 # 安装vue-viewload
 使用npm在本地安装：
 ```bash
