@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueViewload from '../../vue-viewload'
+import VueViewload from '../../src/vue-viewload'
 
 Vue.use(VueViewload)
 

@@ -14,6 +14,7 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 - [横向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app2.html)
 - [在容器内滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app3.html)
 - [懒加载选项设置](https://shuizhubocai.github.io/vue-viewload/demo/html/app4.html)
+- [非img元素进入可视区域后执行回调函数，比如回调函数中执行ajax请求](https://shuizhubocai.github.io/vue-viewload/demo/html/app5.html)
 
 # 扫码查看例子入口
 [![demo](https://shuizhubocai.github.io/vue-viewload/demo/img/qrcode.png)](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
@@ -27,9 +28,10 @@ npm install vue-viewload --save-dev
 # 使用vue-viewload
 js文件中
 ```javascript
-//需要引入vue，以及vue-viewload
+//需要引入vue，以及vue-viewload，下面的axios是ajax库，如果不需要可以不引用
 import Vue from 'vue'
 import VueViewload from 'vue-viewload'
+import axios from 'axios'
 
 //使用VueViewload
 Vue.use(VueViewload)
@@ -58,13 +60,29 @@ new Vue({
             'http://pics.sc.chinaz.com/files/pic/pic9/201604/fpic873.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201605/fpic1208.jpg'
         ]
+    },
+    methods: {
+        //函数需要返回一个函数
+        getAjaxContent: function() {
+            return function() {
+                axios({
+                    method: 'post',
+                    url: '../api/data.txt'
+                }).then((response) => {
+                    this.innerHTML = response.data;
+                })
+            }
+        }
     }
 })
 ```
 
-html文件中，在要进行懒加载的元素上添加vue指令v-view，值为加载资源的URL。需要懒加载的元素请尽量设置宽高样式
+html文件中，在要进行懒加载的元素上添加vue指令v-view，值为加载资源的URL或methods方法。需要懒加载的元素请尽量设置宽高样式
 ```html
 <div id="app">
+
+    #给img元素的src赋值，设置图片未加载时显示的图片，可以图片设置为一个loading.gif动态加载图
+    <img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic">
 
     #v-view的值不是变量的，值为单引号引起来的资源url地址
     <img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;">
@@ -75,20 +93,11 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
     #v-view的值是变量，变量值通过遍历list数组得来
     <img v-view="item" v-for="item in list" style="height:200px;">
 
-</div>
-```
-
-给img元素的src赋值，设置图片未加载时显示的图片，可以图片设置为一个loading.gif动态加载图
-```html
-<div id="app">
-
-    #设img的src值为loading.gif的url
-    <img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic">
+    #v-view的值是methods方法，一般用在非img元素
+    <div v-view="getAjaxContent()">加载中...</div>
 
 </div>
 ```
-
-
 
 # 设置懒加载选项
 ```javascript

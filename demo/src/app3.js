@@ -1,11 +1,12 @@
 import Vue from 'vue'
-import VueViewload from '../../vue-viewload'
+import VueViewload from '../../src/vue-viewload'
 
 Vue.use(VueViewload)
 
 new Vue({
     el: '#app3',
     data: {
+        pic: 'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg',
         list: [
             'http://pics.sc.chinaz.com/files/pic/pic9/201702/zzpic1399.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201612/fpic9875.jpg',

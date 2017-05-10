@@ -1,12 +1,13 @@
 import Vue from 'vue'
+import axios from 'axios'
 import VueViewload from '../../src/vue-viewload'
 
 Vue.use(VueViewload)
 
 new Vue({
-    el: '#app2',
+    el: '#app5',
     data: {
-        pic: 'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg',
+        pic: 'http://pics.sc.chinaz.com/files/pic/pic9/201702/zzpic1399.jpg',
         list: [
             'http://pics.sc.chinaz.com/files/pic/pic9/201702/zzpic1399.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201612/fpic9875.jpg',
@@ -27,5 +28,47 @@ new Vue({
             'http://pics.sc.chinaz.com/files/pic/pic9/201604/fpic873.jpg',
             'http://pics.sc.chinaz.com/files/pic/pic9/201605/fpic1208.jpg'
         ]
+    },
+    methods: {
+        getAjaxContent1: function() {
+            return function() {
+                axios({
+                    method: 'post',
+                    url: '../api/data.txt'
+                }).then((response) => {
+                    this.innerHTML = response.data;
+                })
+            }
+        },
+        getAjaxContent2: function() {
+            return function() {
+                axios({
+                    method: 'post',
+                    url: '../api/data.txt'
+                }).then((response) => {
+                    this.innerHTML = response.data;
+                })
+            }
+        },
+        getAjaxContent3: function() {
+            return function() {
+                axios({
+                    method: 'post',
+                    url: '../api/data.txt'
+                }).then((response) => {
+                    this.innerHTML = response.data;
+                })
+            }
+        },
+        getAjaxContent4: function() {
+            return function() {
+                axios({
+                    method: 'post',
+                    url: '../api/data.txt'
+                }).then((response) => {
+                    this.innerHTML = response.data;
+                })
+            }
+        }
     }
 })

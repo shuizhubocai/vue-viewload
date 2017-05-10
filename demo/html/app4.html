@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>vue</title>
+    <title>懒加载选项设置</title>
     <style>
         ul {
             padding: 0;
         }
         img {
             max-width: 100%;
+            min-height: 100px;
         }
     </style>
 </head>
 <body>
 <div id="app4">
     <h2>设置options选项</h2>
-    <p>第二张图片地址不存在会显示errorPic图片，提前200px载入图片，淡入显示，进入可视区域后执行回调函数</p>
+    <p>倒数第三张图片地址不存在会显示errorPic图片，提前200px载入图片，淡入显示，进入可视区域后执行回调函数</p>
     <pre>
         Vue.use(VueViewload, {
             defaultPic: 'http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif',
             errorPic: 'http://a0.att.hudong.com/77/31/20300542906611142174319458811.jpg',
             threshold: -200,
-            // effectFadeIn: true,
+            effectFadeIn: true,
             callback: function(ele, src) {
                 ele.style.border = '1px solid red';
                 console.log(ele.nodeName + '...' + src);

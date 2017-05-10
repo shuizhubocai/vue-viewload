@@ -12,7 +12,7 @@ let _util = {
      * @param delay
      * @returns {function()}
      */
-    debounce: function(fn, delay) {
+    debounce: function (fn, delay) {
         let timer
         return () => {
             clearTimeout(timer)
@@ -103,7 +103,7 @@ class VueViewload {
     inView (ele) {
         let isInView = false,
             rect = ele.getBoundingClientRect(),
-            parentRect = this.container == window ? {left:0, top: 0} : this.container.getBoundingClientRect(),
+            parentRect = this.container == window ? {left: 0, top: 0} : this.container.getBoundingClientRect(),
             viewWidth = this.container == window ? window.innerWidth : this.container.clientWidth,
             viewHeight = this.container == window ? window.innerHeight : this.container.clientHeight
         if (rect.bottom > this.threshold + parentRect.top && rect.top + this.threshold < viewHeight + parentRect.top && rect.right > this.threshold + parentRect.left && rect.left + this.threshold < viewWidth + parentRect.left) {
@@ -149,20 +149,23 @@ class VueViewload {
             this.unbindUI()
         }
         for (let i = 0; i < this.selector.length; i++) {
-            let item = this.selector[i]
-            if (!item.ele.getAttribute('data-src')) {
-                item.ele.setAttribute('data-src', item.src)
-                item.ele.setAttribute('data-status', this.status[0])
-            }
-            if (!item.ele.getAttribute('src')) {
-                item.ele.setAttribute('src', this.defaultPic)
-            }
+            let item = this.selector[i],
+                eleType = item.ele.nodeName.toLowerCase()
             if (getComputedStyle(item.ele, null).display == 'none') {
                 this.selector.splice(i--, 1)
                 continue
             }
+            if (eleType == 'img') {
+                if (!item.ele.getAttribute('data-src')) {
+                    item.ele.setAttribute('data-src', item.src)
+                    item.ele.setAttribute('data-status', this.status[0])
+                }
+                if (!item.ele.getAttribute('src')) {
+                    item.ele.setAttribute('src', this.defaultPic)
+                }
+            }
             if (this.inView(item.ele)) {
-                if (item.ele.nodeName.toLowerCase() == 'img') {
+                if (eleType == 'img') {
                     _util.getPicInfo({
                         src: item.src,
                         errorCallback: (options) => {
@@ -183,8 +186,10 @@ class VueViewload {
 
                         }
                     })
+                    this.callback(item.ele, item.src)
+                } else {
+                    typeof item.src == 'function' && item.src.call(item.ele)
                 }
-                this.callback(item.ele, item.src)
                 this.selector.splice(i--, 1)
             }
         }
@@ -198,8 +203,7 @@ export default {
      * @param options options选项值和VueViewload类选项是一致的
      */
     install(Vue, options = {}) {
-        let reg = new RegExp('((\\..{1,4})|(\/))$'),
-            resourceEles = {},
+        let resourceEles = {},
             initRender
         Vue.directive('view', {
             bind(el, binding) {
@@ -209,14 +213,13 @@ export default {
                 }
                 resourceEles[containerName].push({
                     ele: el,
-                    src: reg.test(binding.value) ? binding.value : reg.test(binding.expression) ? binding.expression : ''
+                    src: binding.value
                 })
                 Vue.nextTick(() => {
                     if (typeof initRender == 'undefined') {
                         initRender = _util.debounce(function () {
                             for (let key in resourceEles) {
-                                options.container = key == 'window' ? window : document
-                                    .getElementById(key)
+                                options.container = key == 'window' ? window : document.getElementById(key)
                                 options.selector = resourceEles[key]
                                 new VueViewload(options).render()
                             }

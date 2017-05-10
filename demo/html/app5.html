@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>非img元素进入可视区域后执行回调函数，比如回调函数中执行ajax请求</title>
+    <style>
+        .cnt {
+            background: #ececec;
+            height: 500px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="app5">
+    <h2>非img元素进入可视区域后执行回调函数，比如回调函数中执行ajax请求</h2>
+    <div v-view="getAjaxContent1()" class="cnt">
+        加载中...
+    </div>
+    <div v-view="getAjaxContent2()" class="cnt">
+        加载中...
+    </div>
+    <div v-view="getAjaxContent3()" class="cnt">
+        加载中...
+    </div>
+    <div v-view="getAjaxContent4()" class="cnt">
+        加载中...
+    </div>
+</div>
+<script src="../dist/app5.bundle.js"></script>
+</body>
+</html>
