@@ -81,19 +81,19 @@ html文件中，在要进行懒加载的元素上添加vue指令v-view，值为�
 ```html
 <div id="app">
 
-    #给img元素的src赋值，设置图片未加载时显示的图片，可以图片设置为一个loading.gif动态加载图
-    <img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic">
+    #给img元素的src赋值，设置图片未加载时显示的图片，可以图片设置为一个loading.gif动态加载图<br/>
+    <img src="http://img.zcool.cn/community/0161f656b0663e6ac7256cb052d31a.gif" v-view="pic"><br/>
 
-    #v-view的值不是变量的，值为单引号引起来的资源url地址
-    <img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;">
+    #v-view的值不是变量的，值为单引号引起来的资源url地址<br/>
+    <img v-view="'http://pics.sc.chinaz.com/files/pic/pic9/201701/bpic232.jpg'" style="height:200px;"><br/>
 
-    #v-view的值是变量，pic值为资源url地址
-    <img v-view="pic" style="height:200px;">
+    #v-view的值是变量，pic值为资源url地址<br/>
+    <img v-view="pic" style="height:200px;"><br/>
 
-    #v-view的值是变量，变量值通过遍历list数组得来
-    <img v-view="item" v-for="item in list" style="height:200px;">
+    #v-view的值是变量，变量值通过遍历list数组得来<br/>
+    <img v-view="item" v-for="item in list" style="height:200px;display:block;"><br/>
 
-    #v-view的值是methods方法，一般用在非img元素
+    #v-view的值是methods方法，一般用在非img元素<br/>
     <div v-view="getAjaxContent()">加载中...</div>
 
 </div>
