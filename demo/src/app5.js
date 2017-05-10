@@ -33,7 +33,7 @@ new Vue({
         getAjaxContent1: function() {
             return function() {
                 axios({
-                    method: 'post',
+                    method: 'get',
                     url: '../api/data.txt'
                 }).then((response) => {
                     this.innerHTML = response.data;
@@ -43,7 +43,7 @@ new Vue({
         getAjaxContent2: function() {
             return function() {
                 axios({
-                    method: 'post',
+                    method: 'get',
                     url: '../api/data.txt'
                 }).then((response) => {
                     this.innerHTML = response.data;
@@ -53,7 +53,7 @@ new Vue({
         getAjaxContent3: function() {
             return function() {
                 axios({
-                    method: 'post',
+                    method: 'get',
                     url: '../api/data.txt'
                 }).then((response) => {
                     this.innerHTML = response.data;
@@ -63,7 +63,7 @@ new Vue({
         getAjaxContent4: function() {
             return function() {
                 axios({
-                    method: 'post',
+                    method: 'get',
                     url: '../api/data.txt'
                 }).then((response) => {
                     this.innerHTML = response.data;

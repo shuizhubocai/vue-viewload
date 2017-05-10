@@ -66,7 +66,7 @@ new Vue({
         getAjaxContent: function() {
             return function() {
                 axios({
-                    method: 'post',
+                    method: 'get',
                     url: '../api/data.txt'
                 }).then((response) => {
                     this.innerHTML = response.data;
