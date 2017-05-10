@@ -14,7 +14,7 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 - [横向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app2.html)
 - [在容器内滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app3.html)
 - [懒加载选项设置](https://shuizhubocai.github.io/vue-viewload/demo/html/app4.html)
-- [非img元素进入可视区域后执行回调函数，比如回调函数中执行ajax请求](https://shuizhubocai.github.io/vue-viewload/demo/html/app5.html)
+- [非img元素进入可视区域后单独执行回调函数(不依赖全局options选项回调函数)，比如可以在回调函数中执行ajax请求](https://shuizhubocai.github.io/vue-viewload/demo/html/app5.html)
 
 # 扫码查看例子入口
 [![demo](https://shuizhubocai.github.io/vue-viewload/demo/img/qrcode.png)](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
