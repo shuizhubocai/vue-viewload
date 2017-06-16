@@ -1,4 +1,4 @@
-﻿# vue-viewload
+# vue-viewload
 ![npm](https://img.shields.io/npm/dt/vue-viewload.svg) ![npm](https://img.shields.io/npm/v/vue-viewload.svg) ![npm](https://img.shields.io/npm/l/vue-viewload.svg)
 
 vue图片懒加载，依赖vue2.0以上版本。图片或者其他资源进入可视区域后加载。
