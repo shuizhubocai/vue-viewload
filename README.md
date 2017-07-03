@@ -8,13 +8,17 @@ vue图片懒加载，依赖vue2.0以上版本。图片或者其他资源进入�
 --- | --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 
-# 例子预览(例子就是/demo目录下的文件)
+# 例子预览
+例子就是/demo目录下的文件，例子之前使用的是站外图片，不太稳定，已修改为站内图片
+
 - [例子列表](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
 - [纵向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app1.html)
 - [横向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app2.html)
 - [在容器内滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app3.html)
 - [懒加载选项设置](https://shuizhubocai.github.io/vue-viewload/demo/html/app4.html)
 - [非img元素进入可视区域后单独执行回调函数(不依赖全局options选项回调函数)，比如可以在回调函数中执行ajax请求](https://shuizhubocai.github.io/vue-viewload/demo/html/app5.html)
+
+
 
 # 扫码查看例子入口
 [![demo](https://shuizhubocai.github.io/vue-viewload/demo/img/qrcode.png)](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
