@@ -9,7 +9,7 @@ vue图片懒加载，依赖vue2.0以上版本。图片或者其他资源进入�
 Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | 11+ ✔ |
 
 # 例子预览
-例子就是/demo目录下的文件，例子之前使用的是站外图片，不太稳定，已修改为站内图片
+例子就是/demo目录下的文件
 
 - [例子列表](https://shuizhubocai.github.io/vue-viewload/demo/index.html)
 - [纵向滚动的例子](https://shuizhubocai.github.io/vue-viewload/demo/html/app1.html)
