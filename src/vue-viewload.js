@@ -181,7 +181,7 @@ class VueViewload {
                             item.ele.setAttribute('data-status', this.status[1])
                             setTimeout(() => {
                                 item.ele.style.opacity = 1
-                                item.ele.style.transition = 'all 1s'
+                                item.ele.style.transition = 'all 0.2s'
                             }, 50)
 
                         }
